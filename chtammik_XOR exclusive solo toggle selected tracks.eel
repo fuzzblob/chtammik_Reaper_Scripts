@@ -1,0 +1,104 @@
+/**
+ * ReaScript Name: XOR exclusive solo toggle selected tracks
+ * Description: Soloes selected tracks when selection contains unsoloed tracks (unsoloing all non-selected), otherwise unsoloes all tracks. uses X-Rayms "Solo exclusive selected tracks"
+ * Instructions: Select tracks. Run
+ * Author: chtammik
+ * Author URI:
+ * Repository:
+ * Repository URI:
+ * File URI:
+ * Licence: GPL v3
+ * Forum Thread: Script: Script name
+ * Forum Thread URI:
+ * REAPER: 5.18
+ * Extensions: None
+ * Version: 1.0
+*/
+ 
+/**
+ * Changelog:
+ * v1.0 (2016-05-12)
+	+ Initial Release
+ */
+
+/*
+// ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING ----- 
+*/
+
+// This function is X-Raym Solo exclusive selected tracks
+function xsolo() local(track, i) (
+	i=0;
+	// Solo all selected tracks
+	loop(CountSelectedTracks(0),
+		SetMediaTrackInfo_Value(GetSelectedTrack(0, i), "I_SOLO", 1);
+		i+=1;
+	);
+
+	i=0;
+	// Unsolo all unselected tracks
+	loop(CountTracks(0),
+		track = GetTrack(0, i);
+		IsTrackSelected(track) == 0 ? (
+			SetMediaTrackInfo_Value(track, "I_SOLO", 0);
+		);
+		i+=1;
+	);
+);
+
+// This function unsoloes all tracks in the session
+function unsolo() local(i) (
+	loop(CountTracks(0),
+		track = GetTrack(0, i);
+		SetMediaTrackInfo_Value(track, "I_SOLO", 0);
+		i+=1;
+	);
+);
+
+function main() local (i, track, sactive, sinactive)
+(
+	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+	i = 0;
+	sactive = 0;
+	sinactive = 0;
+	
+	// Determine solo states of selected tracks
+	loop(CountSelectedTracks(0), (track = GetSelectedTrack(0, i)) ? (
+		GetMediaTrackInfo_Value(track, "I_SOLO") == 1 ? (
+			sactive = 1; //set solo active flag
+			):(
+			sinactive = 1); //set solo inactive flag
+		);
+		i += 1; // INCREMENT loop through selected tracks
+	);
+	sactive == 1 ? ( // if solo is active
+		sinactive == 1 ? ( // and solo inactive
+			xsolo() // exclusive solo selected
+		);
+		sinactive == 0 ? ( // only solo active
+			unsolo(); // unsolo all
+		);
+	);
+	sactive == 0 ? ( // no solo active
+		sinactive == 1 ? ( // but solo in active
+			xsolo(); // exclusive solo
+		);
+		sinactive == 0 ? ( // also no solo inactive
+			i = 0;// do nothing
+		);
+	);
+	Undo_EndBlock("XOR - Solo Toggle", -1); // End of the undo block. Leave it at the bottom of your main function.
+);
+
+//msg_start(); // Display characters in the console to show you the begining of the script execution.
+PreventUIRefresh(1);
+main(); // Execute your main function
+UpdateArrange(); // Update the arrangement (often needed)
+PreventUIRefresh(-1);
+//msg_end(); // Display characters in the console to show you the end of the script execution.
