@@ -1,0 +1,58 @@
+/**
+ * ReaScript Name:
+ * Description:
+ * Instructions: Select tracks. Run
+ * Author: chtammik
+ * Author URI: http://tammik.ca
+ * Repository: chtammik_Reaper_Scripts
+ * Repository URI: https://github.com/chtammik/chtammik_Reaper_Scripts
+ * File URI:
+ * Licence: GPL v3
+ * Forum Thread: Script: -
+ * Forum Thread URI: -
+ * REAPER: 5.18
+ * Extensions: None
+ * Version: 1.0
+*/
+ 
+/**
+ * Changelog:
+ * v1.0 (2016-05-12)
+	+ Initial Release
+ */
+
+/*
+// ----- DEBUGGING ====>
+@import ../../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING ----- 
+*/
+
+// This function is X-Raym Solo exclusive selected tracks
+function solo() local(track, i) (
+	i=0;
+	// Solo all selected tracks
+	loop(CountSelectedTracks(0),
+		SetMediaTrackInfo_Value(GetSelectedTrack(0, i), "I_SOLO", 1);
+		i+=1;
+	);
+);
+
+function main() local (i, track, sactive, sinactive)
+(
+	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+	i = 0;
+	solo();
+	Undo_EndBlock("XOR - Solo Toggle", -1); // End of the undo block. Leave it at the bottom of your main function.
+);
+
+//msg_start(); // Display characters in the console to show you the begining of the script execution.
+PreventUIRefresh(1);
+main(); // Execute your main function
+UpdateArrange(); // Update the arrangement (often needed)
+PreventUIRefresh(-1);
+//msg_end(); // Display characters in the console to show you the end of the script execution.

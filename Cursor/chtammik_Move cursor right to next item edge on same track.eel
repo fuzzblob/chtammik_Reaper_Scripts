@@ -1,0 +1,158 @@
+/**
+-- ReaScript Name: chtammik_Move edit cursor [direction] to next item edge on same track.eel
+-- Description: See title
+-- Instructions: slect region(s), run
+-- Author: chtammik
+-- Author URI: http://tammik.ca
+-- Repository: GitHub > chtammik > chtammik_Reaper_Scripts
+-- Repository URI: https://github.com/chtammik/chtammik_Reaper_Scripts
+-- File URI:
+-- Licence: GPL v3
+-- Forum Thread: Script: Script name
+-- Forum Thread URI: http://forum.cockos.com/***.html
+-- REAPER: 5.18
+-- Extensions: None
+-- Version: 1.0
+*/
+ 
+/**
+ * Changelog:
+ * v0.2 (2015-04-09)
+	+ work in progress
+ */
+
+// ----- DEBUGGING ====>
+@import ../../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+function main() local (item, itemnumber, position, length, snapoffset, fadeinlen, fadeoutlen)
+(
+	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+	item = 0;
+	itemnumber = 0;
+	selected = 0;
+	nextitem = 0;
+	nextitemnumber = 0;
+	startpos = 0;
+	
+	edit_pos = GetCursorPosition(); // get the position of the edit/play cursor currently
+	cursorpos = 0;
+	
+
+	play = GetPlayState();
+	play > 0 ? (
+		cursorpos = GetPlayPosition();
+	):(
+		cursorpos = edit_pos;
+	);
+	ShowConsoleMsg("cursorpos :");
+	msg_d(cursorpos);
+	ShowConsoleMsg("\n");
+	
+	selected = GetSelectedMediaItem(0, int); //setting current media item
+	//track = GetMediaItem_Track(item); // setting up track of current item
+	itemnumber = GetMediaItemInfo_Value(selected, "IP_ITEMNUMBER"); // first item on track is zreo
+	nextitemnumber = itemnumber +1;
+	item = GetMediaItem(0, itemnumber);
+	nextitem = GetMediaItem(0, nextitemnumber);
+	startpos = GetMediaItemInfo_Value(item, "D_POSITION");
+	length = GetMediaItemInfo_Value(item, "D_LENGTH");
+	snapoffset = GetMediaItemInfo_Value(item, "D_SNAPOFFSET");
+	fadeinlen = GetMediaItemInfo_Value(item, "D_FADEINLEN");
+	fadeoutlen = GetMediaItemInfo_Value(item, "D_FADEOUTLEN");
+	
+	ShowConsoleMsg("Item ID: ");
+	msg_d(itemnumber);
+	ShowConsoleMsg("\n");
+	
+	// doing math on different components of the item to get discrete item locations
+	fadeinpos = startpos + fadeinlen;
+	snapoffsetpos = startpos + snapoffset;
+	fadeoutpos = startpos + length - fadeoutlen;
+	endpos = startpos + length;
+	nextstartpos = GetMediaItemInfo_Value(nextitem, "D_POSITION");
+	
+	///*
+	ShowConsoleMsg("startpos: ");
+	msg_d(startpos);
+	ShowConsoleMsg("\n");
+	
+	ShowConsoleMsg("fadeinpos: ");
+	msg_d(fadeinpos);
+	ShowConsoleMsg("\n");
+	
+	ShowConsoleMsg("snapoffsetpos: ");
+	msg_d(snapoffsetpos);
+	ShowConsoleMsg("\n");
+	
+	ShowConsoleMsg("fadeoutpos: ");
+	msg_d(fadeoutpos);
+	ShowConsoleMsg("\n");
+	
+	ShowConsoleMsg("endpos: ");
+	msg_d(endpos);
+	ShowConsoleMsg("\n");
+	
+	ShowConsoleMsg("nextstartpos: ");
+	msg_d(nextstartpos);
+	ShowConsoleMsg("\n");
+	//*/
+	
+	//cursopos > snapoffsetpos
+	//SetMediaItemSelected(itemnumber, 1)
+	
+	cursorpos < startpos ? (
+		ShowConsoleMsg("startpos");
+		ShowConsoleMsg("\n");
+		adjustment = startpos - cursorpos;
+		SetMediaItemSelected(item, 1)
+		):(
+		cursorpos < fadeinpos ? (
+			ShowConsoleMsg("fadeinpos");
+			ShowConsoleMsg("\n");
+			adjustment = fadeinpos - cursorpos;
+			SetMediaItemSelected(item, 1)
+			):(
+			cursorpos < fadeoutpos ? (
+				ShowConsoleMsg("fadeoutpos");
+				ShowConsoleMsg("\n");
+				adjustment = fadeoutpos - cursorpos;
+				SetMediaItemSelected(item, 1)
+				):(
+				cursorpos < endpos ? (
+					ShowConsoleMsg("endpos");
+					ShowConsoleMsg("\n");
+					adjustment = endpos - cursorpos;
+					SetMediaItemSelected(item, 1)
+					):(
+					cursorpos < nextstartpos ? (
+						ShowConsoleMsg("nextstartpos");
+						ShowConsoleMsg("\n");
+						adjustment = nextstartpos - cursorpos;
+						SetMediaItemSelected(item, 0);
+						SetMediaItemSelected(nextitem, 1);
+					);
+				);
+			);
+		);
+	);
+	
+	
+	
+	MoveEditCursor(adjustment, 0);
+
+	Undo_EndBlock("Move edit cursor to start of region under play or edit cursor and play", 0); // End of the undo block. Leave it at the bottom of your main function.
+);
+
+msg_start(); // Display characters in the console to show you the begining of the script execution.
+
+main(); // Execute your main function
+
+UpdateArrange(); // Update the arrangement (often needed)
+
+msg_end(); // Display characters in the console to show you the end of the script execution.

@@ -1,15 +1,15 @@
 /**
- * ReaScript Name: XOR exclusive solo toggle selected tracks
- * Description: Soloes selected tracks when selection contains unsoloed tracks (unsoloing all non-selected), otherwise unsoloes all tracks. uses X-Rayms "Solo exclusive selected tracks"
+ * ReaScript Name: chtammik_XOR exclusive solo toggle selected tracks.eel
+ * Description: exclusive solo when selection contains unsoloed tracks (unsolo non-selected), otherwise unsoloes all tracks. idea: X-Rayms "Solo exclusive selected tracks"
  * Instructions: Select tracks. Run
  * Author: chtammik
- * Author URI:
- * Repository:
- * Repository URI:
- * File URI:
+ * Author URI: http://tammik.ca
+ * Repository: chtammik_Reaper_Scripts
+ * Repository URI: https://github.com/chtammik/chtammik_Reaper_Scripts
+ * File URI: https://github.com/chtammik/chtammik_Reaper_Scripts/blob/master/Tracks/chtammik_XOR%20exclusive%20solo%20toggle%20selected%20tracks.eel
  * Licence: GPL v3
- * Forum Thread: Script: Script name
- * Forum Thread URI:
+ * Forum Thread: Script: -
+ * Forum Thread URI: -
  * REAPER: 5.18
  * Extensions: None
  * Version: 1.0
@@ -23,7 +23,7 @@
 
 /*
 // ----- DEBUGGING ====>
-@import ../Functions/X-Raym_Functions - console debug messages.eel
+@import ../../Functions/X-Raym_Functions - console debug messages.eel
 
 debug = 1; // 0 => No console. 1 => Display console messages for debugging.
 clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
