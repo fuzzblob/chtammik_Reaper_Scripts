@@ -1,8 +1,11 @@
 # chtammik_Reaper_Scripts
 scripts written to add functionality to the Reaper DAW
 
-The repository can be reached by the ReaPack extension here: https://raw.githubusercontent.com/chtammik/chtammik_Reaper_Scripts/master/index.xml
-For more information on ReaPack go here: https://github.com/cfillion/reapack-index/wiki
+The repository can be reached by the ReaPack extension here:
+https://raw.githubusercontent.com/chtammik/chtammik_Reaper_Scripts/master/index.xml
+
+For more information on ReaPack go here:
+https://github.com/cfillion/reapack-index/wiki
 
 This Repository currently contains the following scripts:
 
