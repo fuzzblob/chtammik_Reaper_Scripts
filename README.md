@@ -1,8 +1,10 @@
 # chtammik_Reaper_Scripts
 scripts written to add functionality to the Reaper DAW
-This Repository currently contains the following scripts
+
 The repository can be reached by the ReaPack extension here: https://raw.githubusercontent.com/chtammik/chtammik_Reaper_Scripts/master/index.xml
 For more information on ReaPack go here: https://github.com/cfillion/reapack-index/wiki
+
+This Repository currently contains the following scripts:
 
 Cursor:
 -	chtammik_Move cursor [direction] by [duration] seconds.eel	->	simple edit cursor nudge [work in progress]
