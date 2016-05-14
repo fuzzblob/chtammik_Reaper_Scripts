@@ -1,17 +1,6 @@
--- ReaScript Name: chtammik_Move selected items [direction] [duration] seconds.lua
--- Description: See title
--- Instructions: slect region(s), run
--- Author: chtammik
--- Author URI: http://tammik.ca
--- Repository: GitHub > chtammik > chtammik_Reaper_Scripts
--- Repository URI: https://github.com/chtammik/chtammik_Reaper_Scripts
--- File URI:
--- Licence: GPL v3
--- Forum Thread: Script: Script name
--- Forum Thread URI: http://forum.cockos.com/***.html
--- REAPER: 5.18
--- Extensions: None
--- Version: 1.0
+--	@version 0.1
+--	@author chtammik
+--	@repository Repository URI: https://github.com/chtammik/chtammik_Reaper_Scripts
 
 posn_move = 10.0	-- set item position translation, left is negative (-1.7 was requested)
 msg_flag = true		-- flag to report errors to console

@@ -1,18 +1,7 @@
-/**
--- ReaScript Name: chtammik_Show item number in console.eel
--- Description: See title
--- Instructions: slect item, run
--- Author: chtammik
--- Author URI: http://tammik.ca
--- Repository: GitHub > chtammik > chtammik_Reaper_Scripts > Utility
--- Repository URI: https://github.com/chtammik/chtammik_Reaper_Scripts
--- File URI:
--- Licence: GPL v3
--- Forum Thread: Script: Script name
--- Forum Thread URI: http://forum.cockos.com/***.html
--- REAPER: 5.18
--- Extensions: None
--- Version: 1.0
+/*
+--	@version 1.0
+--	@author chtammik
+--	@repository Repository URI: https://github.com/chtammik/chtammik_Reaper_Scripts
 */
  
 /**

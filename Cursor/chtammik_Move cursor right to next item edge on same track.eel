@@ -1,25 +1,8 @@
-/**
--- ReaScript Name: chtammik_Move edit cursor [direction] to next item edge on same track.eel
--- Description: See title
--- Instructions: slect region(s), run
--- Author: chtammik
--- Author URI: http://tammik.ca
--- Repository: GitHub > chtammik > chtammik_Reaper_Scripts
--- Repository URI: https://github.com/chtammik/chtammik_Reaper_Scripts
--- File URI:
--- Licence: GPL v3
--- Forum Thread: Script: Script name
--- Forum Thread URI: http://forum.cockos.com/***.html
--- REAPER: 5.18
--- Extensions: None
--- Version: 1.0
+/*
+--	@version 0.1
+--	@author chtammik
+--	@repository Repository URI: https://github.com/chtammik/chtammik_Reaper_Scripts
 */
- 
-/**
- * Changelog:
- * v0.2 (2015-04-09)
-	+ work in progress
- */
 
 // ----- DEBUGGING ====>
 @import ../../Functions/X-Raym_Functions - console debug messages.eel

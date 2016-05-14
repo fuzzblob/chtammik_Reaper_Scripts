@@ -1,25 +1,8 @@
-/**
- * ReaScript Name: chtammik_XOR exclusive solo toggle selected tracks.eel
- * Description: exclusive solo when selection contains unsoloed tracks (unsolo non-selected), otherwise unsoloes all tracks. idea: X-Rayms "Solo exclusive selected tracks"
- * Instructions: Select tracks. Run
- * Author: chtammik
- * Author URI: http://tammik.ca
- * Repository: chtammik_Reaper_Scripts
- * Repository URI: https://github.com/chtammik/chtammik_Reaper_Scripts
- * File URI: https://github.com/chtammik/chtammik_Reaper_Scripts/blob/master/Tracks/chtammik_XOR%20exclusive%20solo%20toggle%20selected%20tracks.eel
- * Licence: GPL v3
- * Forum Thread: Script: -
- * Forum Thread URI: -
- * REAPER: 5.18
- * Extensions: None
- * Version: 1.0
+/*
+--	@version 1.0
+--	@author chtammik
+--	@repository Repository URI: https://github.com/chtammik/chtammik_Reaper_Scripts
 */
- 
-/**
- * Changelog:
- * v1.0 (2016-05-12)
-	+ Initial Release
- */
 
 /*
 // ----- DEBUGGING ====>

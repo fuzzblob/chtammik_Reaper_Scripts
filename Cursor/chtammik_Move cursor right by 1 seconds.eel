@@ -1,0 +1,29 @@
+/*
+--	@version 0.1
+--	@author chtammik
+--	@repository Repository URI: https://github.com/chtammik/chtammik_Reaper_Scripts
+*/
+
+// ----- DEBUGGING ====>
+/*@import ../../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+*/
+
+function main() local (item, itemnumber, position, length, snapoffset, fadeinlen, fadeoutlen)
+(
+	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+	edit_pos = GetCursorPosition(); // get the position of the edit/play cursor currently
+	adjustment = 1;
+	MoveEditCursor(adjustment, 0);
+	Undo_EndBlock("move edit cursor", 0); // End of the undo block. Leave it at the bottom of your main function.
+);
+
+//msg_start(); // Display characters in the console to show you the begining of the script execution.
+main(); // Execute your main function
+UpdateArrange(); // Update the arrangement (often needed)
+//msg_end(); // Display characters in the console to show you the end of the script execution.

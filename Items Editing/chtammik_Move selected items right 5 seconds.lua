@@ -1,17 +1,6 @@
--- ReaScript Name: chtammik_Move selected items [direction] [duration] seconds.lua
--- Description: See title
--- Instructions: slect region(s), run
--- Author: chtammik
--- Author URI: http://tammik.ca
--- Repository: GitHub > chtammik > chtammik_Reaper_Scripts
--- Repository URI: https://github.com/chtammik/chtammik_Reaper_Scripts
--- File URI:
--- Licence: GPL v3
--- Forum Thread: Script: Script name
--- Forum Thread URI: http://forum.cockos.com/***.html
--- REAPER: 5.18
--- Extensions: None
--- Version: 1.0
+--	@version 0.1
+--	@author chtammik
+--	@repository Repository URI: https://github.com/chtammik/chtammik_Reaper_Scripts
 
 -- based on PL9-move sel items.lua Created for user: digaldeman
 -- thread: http://forum.cockos.com/showthread.php?p=1679824#post1679824
