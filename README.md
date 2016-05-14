@@ -3,7 +3,7 @@ scripts written to add functionality to the Reaper DAW
 This Repository currently contains the following scripts
 
 Cursor:
-	chtammik_Move cursor right by 1 seconds.eel
+	chtammik_Move cursor [direction] by [duration] seconds.eel
 		simple edit cursor nudge [work in progress]
 	chtammik_Move cursor right to next item edge on same track.eel
 		[work in progress]
