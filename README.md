@@ -13,6 +13,9 @@ Cursor:
 -	chtammik_Move cursor [direction] by [duration] seconds.eel	->	simple edit cursor nudge [work in progress]
 -	chtammik_Move cursor right to next item edge on same track.eel	->	[work in progress]
 
+FX:
+- chtammik_Randomize currently visable fx all parameters on selected track.eel
+
 Items Editing:
 -	chtammik_Move selected items [direction] [X] seconds.eel	->	[left,right]; [0.1; 0.5; 1; 2; 5; 10]
 
