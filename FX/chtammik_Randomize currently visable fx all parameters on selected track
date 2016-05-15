@@ -1,26 +1,66 @@
 /*
---	@version 0.2
+--	@version 1.0
 --	@author chtammik
 --	@repository Repository URI: https://github.com/chtammik/chtammik_Reaper_Scripts
 */
 
+//the string #filter is used to filter parameter names that should not be randomized
+
 /*
 // ----- DEBUGGING ====>
-@import ../../Functions/X-Raym_Functions - console debug messages.eel
+@import ../REAPER/Scripts/Functions/X-Raym_Functions - console debug messages.eel
 
-debug = 1; // 0 => No console. 1 => Display console messages for debugging.
-clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
 msg_clean();
 // <==== DEBUGGING -----
 */
 
+function debugf(debugindex)
+(
+	debug == 1 ? (
+				debugindex == 0 ? ( //post modified parameter
+			ShowConsoleMsg("MODIFIED: ");
+			ShowConsoleMsg(#paramname);
+			ShowConsoleMsg("\n");
+		);
+		debugindex == 1 ? (
+			ShowConsoleMsg("NOT MODIFIED: ");
+			ShowConsoleMsg(#paramname);
+			ShowConsoleMsg("\n");
+		);
+		debugindex == 2 ? ( //post general fx info
+			ShowConsoleMsg("\n");
+			ShowConsoleMsg("fx id: ");
+			msg_d(fx);
+			ShowConsoleMsg("parameter amount: ");
+			msg_d(parameteramt);
+			ShowConsoleMsg("modified parameters: ");
+			msg_d(modified);
+			nonmod = parameteramt - modified;
+			ShowConsoleMsg("not modified parameters: ");
+			msg_d(nonmod);
+		);
+
+	);
+);
+
+function paramrand(track, fx, i)
+(
+	random = rand();
+	TrackFX_SetParamNormalized(track, fx, i, random);
+	modified = modified + 1;
+	debugf(0); //post modified parameter
+);
+
 function main() // local (i, j, item, take, track)
 (
 	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
-	
+	//msg_d(time()); //testoutput
 	track = GetSelectedTrack(0, 0);
-	fx = -1;
+	fx = -1; //initialize fx index
+	modified = 0; //initialize modified fx counter
 	chainvisable = TrackFX_GetChainVisible(track); //returns index of effect visible in chain, or -1 for chain hidden, or -2 for visible no fx selected
 	chainvisable >= 0 ?(
 		fx = chainvisable;
@@ -30,36 +70,28 @@ function main() // local (i, j, item, take, track)
 		ShowConsoleMsg("\n");
 	);
 	parameteramt = TrackFX_GetNumParams(track, fx);
-	ShowConsoleMsg("fx id: ");
-	msg_d(fx);
-	ShowConsoleMsg("parameter amount: ");
-	msg_d(parameteramt);
-	// LOOP TRHOUGH FX parameters - by HeDa
-	i=0; // INITIALIZE track loop
-	modified = 0;
-	randomize = 0;
+	// LOOP TRHOUGH FX parameters
+	i=0; // INITIALIZE loop
 	loop (parameteramt, // loop for all parameters
-		//parametername = TrackFX_GetParamName(track, fx, i, "");
-		//parametername == wet? dry? bypass?
-		//ShowConsoleMsg("pramater index: ");
-		//msg_d(i);
-		//ShowConsoleMsg("pramater name: ");
-		//msg_d(parametername);
-		//ShowConsoleMsg(parametername);
-		//ShowConsoleMsg("\n");
-		(i+2) < parameteramt ? ( //exclude wet and bypass parameters created for every instance, temporary fix until string analysis is done
-			random = rand();
-			TrackFX_SetParamNormalized(track, fx, i, random);
-			modified = modified + 1;
+		TrackFX_GetParamName(track, fx, i, #paramname);
+		#filterinput = "*"; //initialize parameter filter
+		strcat(#filterinput, #paramname); //append parameter name to filterinput
+		strcat(#filterinput, "*"); //finish filter by appending "*"
+		#filter = "Wet Bypass Output (dB) Enable"; //define parameter names to be filtered
+		hay = matchi(#filterinput, #filter); //search for matches between parameter name and filer
+		hay == 0 ? ( //if no match with filter, randomize parameter
+			paramrand(track, fx, i);
+			):(
+			time();
+			debugf(1); //post unmodified parameter
 		);
 		i=i+1; // INCREMENT loop
-	); // ENDLOOP tracks loop
-	ShowConsoleMsg("modified parameters: ");
-	msg_d(modified);
+	); // ENDLOOP
+	debugf(2); //post post-script summary
 	Undo_EndBlock("My action", 0); // End of the undo block. Leave it at the bottom of your main function.
 );
 
-msg_start(); // Display characters in the console to show you the begining of the script execution.
+//msg_start(); // Display characters in the console to show you the begining of the script execution.
 main(); // Execute your main function
 //UpdateArrange(); // Update the arrangement (often needed)
-msg_end(); // Display characters in the console to show you the end of the script execution.
+//msg_end(); // Display characters in the console to show you the end of the script execution.
