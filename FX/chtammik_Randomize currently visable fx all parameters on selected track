@@ -20,7 +20,7 @@ msg_clean();
 function debugf(debugindex)
 (
 	debug == 1 ? (
-				debugindex == 0 ? ( //post modified parameter
+		debugindex == 0 ? ( //post modified parameter
 			ShowConsoleMsg("MODIFIED: ");
 			ShowConsoleMsg(#paramname);
 			ShowConsoleMsg("\n");
