@@ -7,6 +7,8 @@ https://raw.githubusercontent.com/chtammik/chtammik_Reaper_Scripts/master/index.
 For more information on ReaPack go here:
 https://github.com/cfillion/reapack-index/wiki
 
+---------------
+
 This Repository currently contains the following scripts:
 
 Cursor:
@@ -24,3 +26,10 @@ Track Properties:
 
 Utility:
 -	chtammik_Show itemnumber in console.eel
+
+---------------
+
+For creating scripts see here:
+- run Reaper asction >>ReaScript: Open ReaScript documentation (html)<<
+- http://reaper.fm/sdk/reascript/reascript.php
+- http://forum.cockos.com/showthread.php?t=142641
